@@ -1,0 +1,278 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+$dark: #17191a;
+$grey: #888893;
+$white: #ffffff;
+$orange: #f5752f;
+$blue: #2da1db;
+$sans-serif: "Montserrat",
+sans-serif;
+$serif: "Roboto Slab",
+serif;
+$body-font-family: $serif;
+$heading-font-family: $sans-serif;
+$body-font-size: 0.8em;
+$body-line-height: 1.65;
+$body-font-weight: 100;
+$body-background-color: $white;
+$body-font-color: $dark;
+$xl: 87.5em; // 4k and hi-res desktop
+$lg: 60em; // 1080 and hi-res laptops
+$med: 40em; // hi-res tablets and low-res laptops
+$sm: 28em; // mobile and low-res tablets
+$xs: 20em; // mobile only
+// breakpoints map
+$breakpoints: ( xs: 768px, sm: 28em, md: 40em, lg: 96rem, xl: 102rem, xx: 120rem);
+.testimonial {
+    padding: 5rem 0 4rem;
+    background: darken($white, 3%);
+}
+
+body {
+    font-family: $serif;
+    font-weight: $body-font-weight;
+    background-color: $white;
+    color: $dark;
+}
+
+@mixin columns($count, $width) {
+    -webkit-column-count: $count;
+    /* Chrome, Safari, Opera */
+    -moz-column-count: $count;
+    /* Firefox */
+    column-count: $count;
+    -webkit-column-width: $width;
+    /* Chrome, Safari, Opera */
+    -moz-column-width: $width;
+    /* Firefox */
+    column-width: $width;
+}
+
+@mixin page-break-inside($rule) {
+    -webkit-column-break-inside: $rule;
+    /* Chrome, Safari, Opera */
+    page-break-inside: $rule;
+    /* Firefox */
+    break-inside: $rule;
+    /* IE 10+ */
+}
+
+// media query mixin
+@mixin break($size) {
+    @media (min-width: map-get($breakpoints, $size)) {
+        @content;
+    }
+}
+
+// number of columns variable
+$items: 12;
+// grid container
+.grid {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+// grid item
+.grid__item {
+    padding: 0.5rem;
+}
+
+// loop over the breakpoints
+@each $key,
+$value in $breakpoints {
+    @for $i from 1 through $items {
+        .grid__item--#{$key}-span-#{$i} {
+            flex: 0 0 100%;
+            @include break($key) {
+                flex: 0 0 #{$i / $items * 100%};
+            }
+        }
+    }
+}
+
+.btn {
+    background-color: $blue;
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 3px;
+    font-family: $sans-serif;
+    font-size: $body-font-size;
+    text-transform: uppercase;
+    top: 40%;
+    position: relative;
+    max-width: 156px;
+    display: block;
+    text-align: center;
+    &:hover {
+        background: darken($blue, 8%);
+        transition: all 0.3s ease;
+    }
+    &:active {
+        background: darken($blue, 25%);
+    }
+}
+
+.testimonial-block {
+    position: relative;
+    width: 100%;
+    max-width: $lg;
+    margin: 0 auto;
+    padding-left: 2.8em;
+    padding-top: 0.5em;
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 99;
+        left: 0;
+        top: -2.75em;
+        width: 2.5em;
+        height: 2.5em;
+        background: $orange;
+        border-radius: 50%;
+        background-image: url(../media/speech-marks);
+        background-size: 45% auto;
+        background-repeat: no-repeat;
+        background-position: center center;
+        box-shadow: $white 0 0 0 4px;
+    }
+    &:after {
+        content: "";
+        display: block;
+        z-index: 89;
+        position: absolute;
+        width: 2px;
+        top: -0.5em;
+        left: 1.25em;
+        height: 100%;
+        margin-left: -1px;
+        background: $orange;
+    }
+    p {
+        position: relative;
+        font-size: 1.1em;
+        margin: 0 0 1em;
+    }
+    span {
+        position: relative;
+        display: block;
+        font-weight: 400;
+        font-size: 0.95em;
+        font-family: $sans-serif;
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: -2.15em;
+            top: 1.2em;
+            margin-left: -5px;
+            width: 10px;
+            height: 10px;
+            background: #f5752f;
+            border-radius: 50%;
+            @media only screen and (max-width: 638px) {
+                top: 4.8em;
+            }
+        }
+    }
+}
+
+nav {
+    border-bottom: $grey 1px solid;
+}
+
+.movie-container {
+    width: 95%;
+    position: relative;
+    margin: 0 auto;
+    display: auto;
+}
+
+#searchbar {
+    width: 48%;
+    float: left;
+    margin-bottom: 4%;
+    height: 36px;
+    max-width: 200px;
+    position: relative;
+    //border: 1px solid grey;
+    @media (min-width: map-get($breakpoints, sm)) {
+        float: right;
+    }
+}
+
+@media (min-width: map-get($breakpoints, sm)) {
+    #searhbar {
+        float: left;
+    }
+    // float: left;
+}
+
+.img-poster {
+    max-width: 300px;
+    max-height: 450px;
+}
+
+.title {
+    font-family: $sans-serif;
+    font-weight: 600;
+}
+
+.select-dropdown {
+    position: relative;
+    z-index: 199;
+    text-transform: uppercase;
+    width: 48%;
+    float: left;
+    margin-bottom: 4%;
+    // height: 36px;
+    max-width: 180px;
+    border-radius: 0px;
+    border: none;
+    border-top: #e3e3e3 1px solid;
+    border-bottom: $grey 3px solid;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    padding: 10px 70px 10px 13px;
+    background: url("../media/arrow.png") right no-repeat;
+    background-size: 20px 20px;
+    color: #444444;
+    font-size: $body-font-size;
+    //line-height: 22px;
+    appearance: none;
+    /* this is must */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &:first-of-type {
+        margin-right: 2%;
+    }
+    option {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+}
+
+.radio-group {
+    label {
+        padding-right: 10px;
+        font-family: $sans-serif;
+        font-weight: 500;
+    }
+    select:hover {
+        color: $orange;
+    }
+    input {
+        margin-right: 10px;
+    }
+}

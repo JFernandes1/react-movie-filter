@@ -12,7 +12,10 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "parcel-bundler": "^1.12.3"
+    "node-sass": "^4.13.0",
+    "parcel-bundler": "^1.12.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
